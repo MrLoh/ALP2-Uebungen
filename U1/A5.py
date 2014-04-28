@@ -1,7 +1,3 @@
-# ALP2 Homework 1
-# Author: M. Esponda
-# Example functions for the task #5
- 
 import sys
 
 def print_char_picture(decide_char_func):
@@ -11,20 +7,17 @@ def print_char_picture(decide_char_func):
 			sys.stdout.write( decide_char_func(j,i,size) )
 		print()
 
-
 def diagonal(x,y,size):
 	if x==y:
 		return '@'
 	else:
 		return '.'
 
-
 def grid(x,y,size):
 	if (x%4==0) or (y%4==0):
 		return '.'
 	else:
 		return ' '
-
 
 def rect(x, y, size):
 	viertel = size//4
@@ -64,14 +57,27 @@ def easter_egg(x,y,size):
 		else:
 			return '.'
 
+def chessboard(x,y,size):
+	if y%12<6:
+		if x%12<6:
+			if (y%12==1 or y%12==4) and (x%12==1 or x%12==4):
+				return ' '
+			else: 
+				return '⌷'
+		else:
+			return ' '
+	else:
+		if x%12>=6:
+			if (y%12==1+6 or y%12==4+6) and (x%12==1+6 or x%12==4+6):
+				return ' '
+			else: 
+				return '⌷'
+		else:
+			return ' '
 
-
-# Test
-# print('diagonal')
 # print_char_picture(diagonal)
-# print('grid')
 # print_char_picture(grid)
-# print('rect')
 # print_char_picture(rect)
-
 print_char_picture(easter_egg)
+print()
+print_char_picture(chessboard)
