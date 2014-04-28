@@ -39,10 +39,39 @@ def rect(x, y, size):
 		else:
 			return '.'
 
+def elipse(x,y,r):
+	if 1 > ((x-r)/r)**2 + ((y-r)/r)**2: 
+		return True
+	else: 
+		return False
+
+def easter_egg(x,y,size):
+	r = size/2
+	if y < r:
+		if elipse(x,y,r):
+			if (x%4==0) and (y%4==0):
+				return 'o'
+			else: 
+				return '_'
+		else: 
+			return ' '
+	else:
+		if elipse(x,y,r):
+			if x%5==0 or x%5==1+3:
+				return '|'
+			else:
+				return '⌷'
+		else:
+			return '.'
+
+
+
 # Test
-print('diagonal')
-print_char_picture(diagonal)
-print('grid')
-print_char_picture(grid)
-print('rect')
-print_char_picture(rect)
+# print('diagonal')
+# print_char_picture(diagonal)
+# print('grid')
+# print_char_picture(grid)
+# print('rect')
+# print_char_picture(rect)
+
+print_char_picture(easter_egg)
