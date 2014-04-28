@@ -17,6 +17,6 @@ def collatz_seqs(n):
 
 def print_collatz(col_n_list):
 	for i in range(len(col_n_list)):
-		print i+1,":\t",col_n_list[i]
+		print(i+1,":\t",col_n_list[i])
 
 print_collatz(collatz_seqs(12))

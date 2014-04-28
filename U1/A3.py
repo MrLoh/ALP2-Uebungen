@@ -7,5 +7,5 @@ def befreundet(a,b):
 	else:
 		return False
 
-print befreundet(6,6)
-print befreundet(6,5)
+print(befreundet(6,6))
+print(befreundet(6,5))

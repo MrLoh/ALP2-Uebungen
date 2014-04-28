@@ -5,4 +5,4 @@ def echtTeiler(n):
 			divs += [m]
 	return divs
 
-print echtTeiler(250)
+print(echtTeiler(250))
