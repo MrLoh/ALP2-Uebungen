@@ -1,11 +1,15 @@
-from A1 import sum
-from A2 import echtTeiler 
+def teiler_sum(n):
+	sum = 0
+	for i in range(1,n):
+		if n%i == 0:
+			sum += i
+	return sum
 
 def befreundet(a,b):
-	if b == sum(echtTeiler(a)) and a == sum(echtTeiler(a)):
+	if b == teiler_sum(a) and a == teiler_sum(b):
 		return True
 	else:
 		return False
 
-print(befreundet(6,6))
+print(befreundet(284,220))
 print(befreundet(6,5))
