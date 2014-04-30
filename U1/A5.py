@@ -75,9 +75,9 @@ def chessboard(x,y,size):
 		else:
 			return ' '
 
+# Test
 # print_char_picture(diagonal)
 # print_char_picture(grid)
 # print_char_picture(rect)
 print_char_picture(easter_egg)
-print()
 print_char_picture(chessboard)
