@@ -1,10 +1,6 @@
 def apply_if(p,f,xs):
 	'''Wendet die gegebene Funktion f auf alle Elemente x der Liste xs an, für die p(x) gilt und gibt eine Liste mit den Elementen, auf die f angewendet wurde zurück.'''
-	res = []
-	for x in xs:
-		if p(x):
-			res += [f(x)]
-	return res
+	return [f(x) for x in xs if p(x)]
 
 # Test
 def ungerade(x):

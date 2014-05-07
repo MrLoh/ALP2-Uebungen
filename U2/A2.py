@@ -1,17 +1,15 @@
 from time import time
 
 def zip_with_rekur(f,xs,ys):
-	'''Gegeben eine funtion f, und zwei listen xs und ys, mit |xs|<=|ys|, wird eine Liste aller f(x_i,y_i) zurück, für die x_i,y_i in xs,ys. Die Methode ist rekursiv umgesetzt.'''
-	if len(xs) == 1:
-		return [f(xs[0],ys[0])]
+	'''Gegeben eine funtion f, und zwei listen xs und ys wird eine Liste aller f(x_i,y_i) zurück, für die x_i,y_i in xs,ys. Die Methode ist rekursiv umgesetzt.'''
+	if min(len(xs),len(ys)) == 0:
+		return []
 	else:
 		return [f(xs[0],ys[0])] + zip_with_rekur(f,xs[1:],ys[1:])
 
 def zip_with_iter(f,xs,ys):
-	'''Gegeben eine funtion f, und zwei listen xs und ys, mit |xs|<=|ys|, wird eine Liste aller f(x_i,y_i) zurück, für die x_i,y_i in xs,ys. Die Methode ist iterativ umgesetzt.'''
-	for i in range(len(xs)):
-		xs[i] = f(xs[i],ys[i])
-	return xs
+	'''Gegeben eine funtion f, und zwei listen xs und ys, wird eine Liste aller f(x_i,y_i) zurück, für die x_i,y_i in xs,ys. Die Methode ist iterativ umgesetzt.'''
+	return [f(xs[i],ys[i]) for i in range(min(len(xs),len(ys)))]
 
 # Test
 def sum(x,y):
