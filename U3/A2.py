@@ -3,7 +3,9 @@ def sort(L):
 	if len(L) <= 1:
 		return L
 	else:
-		return sort([x for x in L[1:] if x<L[0]]) + [L[0]] + sort([x for x in L[1:] if x>=L[0]])
+		Lu = sort([el for el in L[1:] if el<L[0]])
+		Lo = sort([el for el in L[1:] if el>=L[0]])
+		return Lu + [L[0]] + Lo
 
 def majority(L):
 	'''Testet ob eine Liste ein Element enthält, welches die Mehrheit darstellt und gibt dieses zurück, ansonsten wird "keine Majority" zurück gegeben. '''
@@ -19,8 +21,10 @@ def majority(L):
 				max_count = cur_count
 				max_el = L[i]
 			cur_count = 1
-	if L != [] and max_count > size//2: return max_el
-	else: return "keine Majority"
+	if L != [] and max_count > size//2: 
+		return max_el
+	else: 
+		return "keine Majority"
 
 # Test
 for L in [ [], [1], [1,0,1,0,0,1,0,], ["b","a","c","b","a","c"], ["c","a","c","c","a","c","c","b","b"] ]:
