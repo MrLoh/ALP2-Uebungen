@@ -30,5 +30,7 @@ def majority(L):
 for L in [ [], [1], [1,0,1,0,0,1,0,], ["b","a","c","b","a","c"], ["c","a","c","c","a","c","c","b","b"] ]:
 	print(L)
 	print(majority(L))
+	print("\n")
 
-# Der majority Algorythmus muss zunächst die Liste sortieren. Dies geschieht mit Quicksort mit einer durchschnittlichen Komplexität von O(n*log(n)) Vergleichsoperationen oder schlimmstenfalls O(n^2), wobei n die Länge der Liste ist. Danach muss die Liste nur einmal durchgegangen werden, somit ergibt sich eine Komplexität von O(n) für die restlichen Operationen. Insgesamt ergibt sich damit eine komplexität von O(n*log(n)) oder im schlimmsten Fall O(n^2).
+from textwrap import fill as break_lines
+print(break_lines("Der majority Algorythmus muss zunächst die Liste sortieren. Dies geschieht mit Quicksort mit einer durchschnittlichen Komplexität von O(n*log(n)) Vergleichsoperationen oder schlimmstenfalls O(n^2), wobei n die Länge der Liste ist. Danach muss die Liste nur einmal durchgegangen werden, somit ergibt sich eine Komplexität von O(n) für die restlichen Operationen. Insgesamt ergibt sich damit eine Komplexität von O(n*log(n)) oder im schlimmsten Fall O(n^2)."))
