@@ -1,6 +1,5 @@
-from random import randint
-
 # Aufgabenteil a)
+from random import randint
 def field_creation_heper(p):
 	'''gibt "x" mit der in Prozent gegebenen Wahrscheinlichkeit zurück, ansonsten wird "." zurück gegeben. Der Prozentwert wird auf eine ganze Zahl abgerundet.'''
 	if randint(0,99) < p: return 'x'
