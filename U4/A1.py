@@ -31,7 +31,7 @@ L4 = [1,2,3,5,4]
 L5 = [0,0]
 for L in [L1,L2,L3,L4,L5]:
 	print(is_sorted(L))
-print("\n")
+print()
 
 # Aufgabenteil b)
 from random import randint
@@ -85,16 +85,16 @@ def merge_sort(L,H,lo,up,length,threshold=9):
 		# print("MERGING:\nlength: %s, lo: %s, up: %s, mid: %s" % (length,lo,up,mid))
 		# print(" L: %s \n H: %s \n  ->" % (L,H) )
 		merge(L,H,lo,up,mid)
-		# print(" H: %s  d\n" % (H) )
+		# print(" H: %s \n" % (H) )
 		L = H[:] #L updaten
 	return L
 
 def merge_sort_init(L,threshold=9):
 	'''Sortiert die Liste L mit Mergesort. Optional, kann angegeben werden, ab welchem threshold Bubble-Sort benutzt werden soll.'''
-	H = L[:]
 	if len(L) < threshold:
 		bubble_sort(L,0,len(L))
 	else:
+		H = L[:]
 		length = len(L)//2 #gibt die Länge der zu mergenden Listen an
 		L = merge_sort(L,H,0,len(L),length,threshold)
 	return L
@@ -107,32 +107,41 @@ for i in range(10):
 	# L = merge_sort_init(L,2)
 	if is_sorted(L) == 1: print("Eine Liste wurde erfolgreich sortiert")
 	else: print("!!! ERROR !!!")
+print()
 
 # Aufgabenteil d
 
-# def merge_sort(L,H,lo,up,length):
-# 	if length <= 9:
-# 		bubble_sort(L,lo,up)
-# 	else:
-# 		merged = 0 #gibt an bis wohin H gemerged wurde
-# 		while merged < len(H):
-# 			lo = merged
-# 			up = min(len(H),merged+2*length)
-# 			mid = min(len(H),merged+length)
-# 			merge_sort(L,H,lo,mid,length)
-# 			merge_sort(L,H,mid,up,length)
-# 			merge(L,H,merged,lo,up,mid)
-# 			merged += 2*length
-# 		L = H[:] #L updaten
-# 		length *= 2 #nächte mergestufe
+def merge_sort(L,threshold=9):
+	'''Sortiert die Liste L mit Mergesort. Optional, kann angegeben werden, ab welchem threshold Bubble-Sort benutzt werden soll.'''
+	len_L = len(L)
+	size = min(threshold,len_L)
+	#sortiere die Teillisten
+	for lo in [i*size for i in range(round(len_L/size+.5))]:
+		up = min(lo+size,len_L)
+		# print("SORTING:\nlength: %s, lo: %s, up: %s" % (size,lo,up))
+		# print(" L: %s \n  ->" % (L) )
+		bubble_sort(L,lo,up)
+		# print(" L: %s \n" % (L) )
+	#merge die Teillisten
+	while size < len_L:
+		H = L[:] #H updaten
+		for lo in [i*2*size for i in range(round(len_L/(2*size)+.5))]:
+			mid = lo+size
+			up = min(lo+2*size,len_L)
+			# print("MERGING:\nlength: %s, lo: %s, up: %s, mid: %s" % (size,lo,up,mid))
+			# print(" L: %s \n H: %s \n  ->" % (L,H) )
+			merge(L,H,lo,up,mid)
+			# print(" H: %s \n" % (H) )
+			L = H[:] #L updaten
+		size *= 2
+	return L
 
 
-
-
-
-
-
-
-
-
-
+# Tests
+for i in range(10):
+	L = generate_random_list(0,20,16)
+	L = merge_sort(L)
+	# L = [16, 14, 6, 5, 1, 7, 10, 4, 15, 9, 2, 12, 11, 13, 3, 8] 
+	# L = merge_sort(L,2)
+	if is_sorted(L) == 1: print("Eine Liste wurde erfolgreich sortiert")
+	else: print("!!! ERROR !!!")
