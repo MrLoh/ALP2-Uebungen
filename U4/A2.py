@@ -1,30 +1,23 @@
-# def bubble_sort(L):
-# 	'''Sortiert die gegebene Liste L mit Bubble-Sort.'''
-# 	remain = len(L)-1
-# 	done = False
-# 	while not done:
-# 		done = True
-# 		for i in range(remain):
-# 			if L[i] > L[i+1]:
-# 				done = False
-# 				L[i], L[i+1] = L[i+1], L[i]
-# 		remain -= 1
-
-
-def bubble_sort(L,lo,up):
-	'''Sortiert den abschnitt zwischen lo und up der gegebene Liste L mit Bubble-Sort.'''
-	remain_up = up-1
+def bubble_sort(L):
+	'''Sortiert die gegebene Liste L mit Bubble-Sort.'''
+	remain = len(L)-1
 	done = False
+	swap_counter = [ [] for i in range(len(L)) ]
 	while not done:
 		done = True
-		for i in range(lo,remain_up):
+		for i in range(remain):
 			if L[i] > L[i+1]:
 				done = False
+				# print("Swapping %s_%s and %s_%s" % (L[i],i,L[i+1],i+1))
 				L[i], L[i+1] = L[i+1], L[i]
-		remain_up -= 1
+				swap_counter[i] += [1]
+				swap_counter[i+1] += [-1]
+				swap_counter[i], swap_counter[i+1] = swap_counter[i+1], swap_counter[i]
+		remain -= 1
+	print("Es wurden %s verschlechternde Vertauschungen ausgeführt." % sum([ abs(abs(sum(swap_counter[i]))-len(swap_counter[i])) for i in range(len(swap_counter)) ]) )
 
-
-L = [8,15,16,9,13,12,5,4,3,11,14,1,2,10,7,6,11,20,19,17,18]
-print(L)
-bubble_sort(L,0,len(L))
-print(L)
+# Test
+from random import randint
+for i in range(10):
+	L = [ randint(0,99) for i in range(20) ]
+	bubble_sort(L)
