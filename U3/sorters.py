@@ -37,3 +37,25 @@ def bubble_sort(L):
 				done = False
 				L[i], L[i+1] = L[i+1], L[i]
 		stop -= 1
+
+# MERGE SORT
+
+def merge(lo,up):
+	res = []
+	i,j = 0,0
+	while i < len(lo) and j < len(up):
+		if lo[i] <= up[j]: 
+			res += [lo[i]]
+			i += 1 
+		else:
+			res += [up[j]]
+			j += 1 
+		res += lo[i:]
+		res += up[j:]
+
+def merge_sort(L):
+	if len(A) < 2:
+		return L 
+	else:
+		m = len(A) // 2
+		return merge(merge_sort(A[:m]),merge_sort(A[m:]))
