@@ -27,23 +27,16 @@
 # 		return merge(Lo,Lu)
 
 
-def merge(L,H,lo,up):
-	length = up-lo
-	mid = lo+length//2
-	print("mid = ",mid)
+def merge(L,H,lo,up,mid):
 	i = lo
 	j = mid
 	for k in range(lo,up):
-		print("k = ",k)
 		if i < mid and j < up:
-			print(L[i]," <= ",L[j]," = ",L[i]<=L[j])
 			if L[i] <= L[j]:
 				H[k] = L[i]
-				print(H)
 				i += 1
 			else:
 				H[k] = L[j]
-				print(H)
 				j += 1
 		elif i < mid:
 			H[k] = L[i]
@@ -52,8 +45,19 @@ def merge(L,H,lo,up):
 			H[k] = L[j]
 			j += 1
 
-L = [0,9,9,1,3,5,7,9,0,2,4,6,8]
+L = [0, 1, 4, 5, 6, 6, 16, 17, 1, 4, 5, 5, 6, 6, 7, 15] 
 H = L[:]
 print(L)
-merge(H,L,3,13)
+merge(L,H,0,16,8)
+L = H[:]
 print(L)
+
+
+
+
+
+
+
+
+
+
