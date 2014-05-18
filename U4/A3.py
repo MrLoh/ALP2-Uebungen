@@ -30,6 +30,3 @@ print()
 print(wrap_text("Der in-place Counting-Sort Algorythmus ist nicht zum sortieren nach Geburtstagen geeignet. Es treten zwei Probleme auf:"))
 print(wrap_text("1. kann der Algorythmus nur Listen aus ganzen Zahlen sortieren, da die gegebene Liste mit den in C gespeicherten Plätzen überschrieben wird. C speichert aber nur Positionen von ganzen Zahlen und keine Daten. Dies lässt sich nur lösen, wenn die in-place Eigenschaft aufgegeben wird."))
 print(wrap_text("2. Außerdem ist der Algorythmus noch nicht einmal zur Sortierung von Geburtsdaten an sich geeignet. Geburtstage sind 8-stellige Zahlen (YYYMMDD), somit bräuchte man eine über 20-millionen-stellige Hilfsliste C und selbst, wenn man den Algorythmus so verändern würde, dass C nicht bei 0 losläuft sondern einen Startwert akzeptiert, so hätte man immernoch 1 Million Stellen in C für die letzten hundert Jahre und proportionale Laufzeit und Speicherverbrauch. Die Lösung wäre eine Radix-Sort-Variante, welche nacheinander Tage, Monate und Jahre sortiert. Diese lässt sich mit diesem Algorythmus aber wegen der fehlenden Stabilität nich implementieren. "))
-
-
-

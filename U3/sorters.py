@@ -59,3 +59,39 @@ def merge_sort(L):
 	else:
 		m = len(A) // 2
 		return merge(merge_sort(A[:m]),merge_sort(A[m:]))
+
+
+# HEAP SORT
+
+def heapify(H,i):
+	'''Stellt die Heapbedingung des Heaps H an der Stelle i her.'''
+	le, ri = i*2, i*2+1
+	if le <= H[0] and H[le]>H[i]: maxi = le
+	elif ri <= H[0] and H[ri]>H[i]: maxi = ri
+	else: maxi = i
+	if maxi != i:
+		H[i], H[maxi] = H[maxi], H[i]
+		heapify(H,maxi)
+
+def build_heap(L):
+	'''Wandelt eine Liste L in einen Heap um.'''
+	L = [len(L)]+L[:]
+	for i in range(L[0]//2,0,-1):
+		heapify(L,i)
+
+def heapsort(L):
+	'''Sortiert die Liste L mit Heapsort und gibt die Liste zurück.'''
+	build_heap(L)
+	for i in range(L[0],1,-1):
+		L[i], L[1] = L[1], L[i]
+		L[0] -= 1
+		heapify(L,1)
+
+
+
+
+
+
+
+
+
