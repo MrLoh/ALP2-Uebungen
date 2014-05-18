@@ -1,4 +1,4 @@
-from textwrap import fill as break_lines
+from textwrap import fill as wrap_text
 def bubble_sort(L):
 	'''Sortiert die gegebene Liste L mit Bubble-Sort.'''
 	remain = len(L)-1
@@ -17,7 +17,7 @@ def bubble_sort(L):
 		remain -= 1
 	total_swaps = sum([ len(swaps) for swaps in swap_counter ])
 	wrong_direction_swaps = sum([ abs( abs(sum(swaps))-len(swaps) ) for swaps in swap_counter ])//2
-	print(break_lines( "Von %d Vertauschungen, gingen %d in die falsche Richtung und nochmal soviele wurden gebraucht um diese Rückgängig zu machen. Insgesamt waren also %d%% der Vertauschungen unnötig" % (total_swaps,wrong_direction_swaps,round(2*wrong_direction_swaps/total_swaps*100)) ),"\n")
+	print(wrap_text( "Von %d Vertauschungen, gingen %d in die falsche Richtung und nochmal soviele wurden gebraucht um diese Rückgängig zu machen. Insgesamt waren also %d%% der Vertauschungen unnötig" % (total_swaps,wrong_direction_swaps,round(2*wrong_direction_swaps/total_swaps*100)) ),"\n")
 	return 2*wrong_direction_swaps/total_swaps*100
 
 # Test

@@ -136,7 +136,6 @@ def merge_sort(L,threshold=9):
 		size *= 2
 	return L
 
-
 # Tests
 for i in range(10):
 	L = generate_random_list(0,20,16)
