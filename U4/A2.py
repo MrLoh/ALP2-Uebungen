@@ -1,3 +1,4 @@
+from textwrap import fill as break_lines
 def bubble_sort(L):
 	'''Sortiert die gegebene Liste L mit Bubble-Sort.'''
 	remain = len(L)-1
@@ -14,10 +15,16 @@ def bubble_sort(L):
 				swap_counter[i+1] += [-1]
 				swap_counter[i], swap_counter[i+1] = swap_counter[i+1], swap_counter[i]
 		remain -= 1
-	print("Es wurden %s verschlechternde Vertauschungen ausgeführt." % sum([ abs(abs(sum(swap_counter[i]))-len(swap_counter[i])) for i in range(len(swap_counter)) ]) )
+	total_swaps = sum([ len(swaps) for swaps in swap_counter ])
+	wrong_direction_swaps = sum([ abs( abs(sum(swaps))-len(swaps) ) for swaps in swap_counter ])//2
+	print(break_lines( "Von %d Vertauschungen, gingen %d in die falsche Richtung und nochmal soviele wurden gebraucht um diese Rückgängig zu machen. Insgesamt waren also %d%% der Vertauschungen unnötig" % (total_swaps,wrong_direction_swaps,round(2*wrong_direction_swaps/total_swaps*100)) ),"\n")
+	return 2*wrong_direction_swaps/total_swaps*100
 
 # Test
 from random import randint
 for i in range(10):
-	L = [ randint(0,99) for i in range(20) ]
-	bubble_sort(L)
+	L = [ randint(0,99) for i in range(100) ]
+	unuseful_swap = []
+	unuseful_swap += [bubble_sort(L)]
+	unuseful_swap_average = sum(unuseful_swap)/len(unuseful_swap)
+	print("Durchschnittlich waren %.2f%% der Vertauschungen unnötig." % unuseful_swap_average)
