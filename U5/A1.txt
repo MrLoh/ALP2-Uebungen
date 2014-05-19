@@ -1,0 +1,25 @@
+
+{P} ≡ { a>0 ∧ b>0 ∧ c<0 }
+{P'} ≡ { a>0 ∧ b>0 ∧ c<0 ∧ True }
+{P''} ≡ { a>0 ∧ b>0 ∧ c<0 ∧ a+b-2c-d=a+b-2c-d }
+    a = a+b-c
+{R1} ≡ { a>0 ∧ b>0 ∧ c<0 ∧ a-d-c=a-d-c }
+    d = b
+{R2} ≡ { a>0 ∧ b>0 ∧ c<0 ∧ a-b-c=a-d-c }
+    b = a-b-c
+{R3} ≡ { a>0 ∧ b>0 ∧ c<0 ∧ b=a-d-c }
+{R3'} ≡ { a>0 ∧ b>0 ∧ -c>0 ∧ b=a-d-c }
+    c = -c
+{Q} ≡ { a>0 ∧ b>0 ∧ c>0 ∧ b=a-d+c }
+
+-----------------------------------------------------
+
+{P} ≡ {P'} ≡ {P''}
+{P''} -> {R1} Zuweisungsaxiom
+{R1} -> {R2} Zuweisungsaxiom
+{R2} -> {R3} Zuweisungsaxiom
+{R3} ≡ {R3'}
+{R3'} -> {Q} Zuweisungsaxiom
+
+Sequenzregel:
+{P} -> {Q}
