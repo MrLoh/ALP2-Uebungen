@@ -1,0 +1,30 @@
+def div(dividend, divisor):
+{P} ≡ {dividend ≥ 0 ∧ divisor > 0 } ≡ { (dividend = 0*divisor+dividend) ∧ dividend ≥ 0 ∧ divisor > 0 }
+	result = 0
+{R1} ≡ { (dividend = result*divisor+dividend) ∧ divisor > 0 ∧ dividend ≥ 0 }
+	rest = dividend
+{INV} ≡ { (dividend = result*divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 }
+	while rest >= divisor:
+	{INV ∧ B} ≡ { (dividend = result*divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 ∧ rest ≥ divisor }
+	{R2} ≡ { (dividend = result*divisor+divisor+rest-divisor) ∧ divisor > 0 ∧ rest ≥ divisor ∧ τ = rest }
+		rest = rest - divisor
+	{R3} ≡ { (dividend = (result+1)*divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 ∧ τ = rest-divisor }
+	{R4} ≡ { (dividend = result*divisor+divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 ∧ τ < rest }
+		result = result + 1
+	{INV} ≡ { (dividend = result*divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 ∧ τ < rest }
+{INV ∧ ¬B} ≡ { (dividend = result*divisor+rest) ∧ divisor > 0 ∧ rest ≥ 0 ∧ divisor > rest }
+{Q} ≡ { (dividend=result*divisor+rest) ∧ rest ≥ 0 ∧ divisor > rest }
+	return (result, rest)
+
+{P} zu {Q} mit Sequenzregel, aus:
+	{P} zu {R1} mit Zuweisungsaxiom
+	{R1} zu {INV} mit Zuweisungsaxiom
+	{INV} zu {INV ∧ ¬B} mit While-Regel, aus:
+		mit τ(rest,divisor,result) := rest, folgt wegen rest ≥ 0 auch τ ≥ 0
+		{INV ∧ B} zu {R2} mit Konsequensregel II
+		{R2} zu {R3} mit Zuweisungsaxiom
+		{R3} zu {R4} mit Konsequensregel II
+		{R4} zu {INV} mit Zuweisungsaxiom
+		Mit erweiterter While-Regel folgt totale Korrektheit
+	{INV ∧ ¬B} zu {Q} mit Konsequensregel II
+	durch rekursive Anwendung der Sequenzregel folgt totale Korrektheit
