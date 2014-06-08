@@ -1,7 +1,6 @@
 import java.util.Random;
 
 public class Position {
-
 	// attributes
 	int holeNeighbours = 0;
 	boolean hole = false;
@@ -14,5 +13,4 @@ public class Position {
 			this.hole = true;
 		}
 	}
-
 }
