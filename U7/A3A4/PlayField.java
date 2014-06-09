@@ -1,8 +1,8 @@
 public class PlayField {
 	// attributes
 	Position[][] field;
-	int n;
-	int m;
+	final int n;
+	final int m;
 
 	// constructor
 	public PlayField(int n, int m, double p) {

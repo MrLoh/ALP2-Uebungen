@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Player {
 	// attributes
+	final String name;
 	int score = 0;
 	int rounds = 0;
 	boolean playing = true;
@@ -9,6 +10,11 @@ public class Player {
 	PlayField playField = new PlayField();
 
 	// constructors
+	private static int nextPlayer = 1;
+	public Player() {
+		this.name = "Player"+ nextPlayer;
+		nextPlayer++;
+	}
 
 	// default methods
 	public String toString() {
@@ -49,5 +55,14 @@ public class Player {
 			pick(i, j);
 		}
 		return String.format("  round: %s, picked: (%s,%s)\n", rounds, i, j);
+	}
+	public int play() {
+		while( playing ) {
+			String pick = randomPick();
+			System.out.println(pick + this);
+		}
+		String out = won? "\n  WON\n\n" : "\n  LOST\n\n";
+		System.out.println(out);
+		return score;
 	}
 }
