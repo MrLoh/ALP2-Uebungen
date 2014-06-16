@@ -8,7 +8,7 @@ public class PanikStuck extends AbstractShape implements Shape, Animation {
 	double velocity = 6;
 	int steps = 0;
 	int shape = rand.nextInt(4)+6;
-	int dir = rand.nextInt(7);
+	int dir = rand.nextInt(8);
 	// dir: 0: right, 1: left, 2: up, 3: down, 4: upright, 5:upleft, 6: downright, 7:downleft
 
 	// CONSTRUCTOR

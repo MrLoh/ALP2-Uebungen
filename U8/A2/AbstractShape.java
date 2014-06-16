@@ -3,10 +3,10 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-abstract class AbstractShape {
+abstract class AbstractShape implements Shape, Animation {
 	// ATTRIBUTES
 	double radius;
-	Point center;
+	Point center = new Point();
 	Color color = Color.lightGray;
 	ShapesWorld world;
 	double velocity;
@@ -83,27 +83,48 @@ abstract class AbstractShape {
                     center.x -= velocityDiag; break;
 		}
 	}
-	public boolean directionAvailable(int dir){
+	public boolean directionInFrame(int dir, double factor){
 		int xMax = world.getMax_X();
 		int xMin = world.getMin_X();
 		int yMax = world.getMax_Y();
 		int yMin = world.getMin_Y();
 		boolean available = false;
 		switch(dir){
-			case 0: available = (center.x+2*radius <= xMax); break;
-			case 1: available = (center.x-2*radius >= xMin); break;
-			case 2: available = (center.y-3*radius >= yMin); break;
-			case 3: available = (center.y+3*radius <= yMax); break;
-			case 4: available = (center.x+2*radius <= xMax) &&
-                                (center.y-3*radius >= yMin); break;
-			case 5: available = (center.x+2*radius <= xMax) &&
-                                (center.y+3*radius <= yMax); break;
-			case 6: available = (center.x-2*radius >= xMin) &&
-                                (center.y-3*radius >= yMin); break;
-			case 7: available = (center.x-2*radius >= xMin) &&
-                                (center.y+3*radius <= yMax); break;
+			case 0: available = (center.x+factor*radius <= xMax); break;
+			case 1: available = (center.x-factor*radius >= xMin); break;
+			case 2: available = (center.y-factor*radius >= yMin); break;
+			case 3: available = (center.y+factor*radius <= yMax); break;
+			case 4: available = (center.x+factor*radius <= xMax) &&
+                                (center.y-factor*radius >= yMin); break;
+			case 5: available = (center.x+factor*radius <= xMax) &&
+                                (center.y+factor*radius <= yMax); break;
+			case 6: available = (center.x-factor*radius >= xMin) &&
+                                (center.y-factor*radius >= yMin); break;
+			case 7: available = (center.x-factor*radius >= xMin) &&
+                                (center.y+factor*radius <= yMax); break;
 		}
 		return available;
+	}
+	public boolean directionOccupied(int dir){
+		Shape neighbour = this.world.getClosestShape(this);
+		boolean occupied = false;
+		if( neighbour != null ){
+			switch(dir){
+				case 0: occupied = neighbour.contains(center.x+radius, center.y); break;
+				case 1: occupied = neighbour.contains(center.x-radius, center.y); break;
+				case 2: occupied = neighbour.contains(center.x, center.y-radius); break;
+				case 3: occupied = neighbour.contains(center.x, center.y+radius); break;
+				case 4: occupied = neighbour.contains(center.x+radius, center.y) ||
+	                               neighbour.contains(center.x, center.y-radius); break;
+				case 5: occupied = neighbour.contains(center.x+radius, center.y) ||
+	                               neighbour.contains(center.x, center.y+radius); break;
+				case 6: occupied = neighbour.contains(center.x-radius, center.y) ||
+	                               neighbour.contains(center.x, center.y-radius); break;
+				case 7: occupied = neighbour.contains(center.x-radius, center.y) ||
+	                               neighbour.contains(center.x, center.y+radius); break;
+			}
+		}
+		return occupied;
 	}
 
 	// INTERACTIONS

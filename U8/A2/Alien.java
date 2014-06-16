@@ -14,8 +14,8 @@ public class Alien extends AbstractShape implements Shape, Animation {
 	public Alien() {
 		this.radius = 20;
 		this.color = Color.GREEN;
-		int x = rand.nextInt(300)-150;
-		int y = rand.nextInt(300)-150;
+		int x = rand.nextInt(15)*20-150;
+		int y = rand.nextInt(15)*20-150;
 		this.center = new Point(x,y);
 	}
 
@@ -38,10 +38,9 @@ public class Alien extends AbstractShape implements Shape, Animation {
 	// PLAY METHOD
 	public void play(){
 		steps++;
-		System.out.println(directionAvailable(dir));
-		if( velocity*steps%radius == 0 ){ //make him move a little smoother
+		if( steps%(2*radius) == 0 ){ //make him move a little smoother
 			dir = rand.nextInt(8);
-			while( !directionAvailable(dir) ){
+			while( !directionInFrame(dir, 6.0) ){
 				dir = rand.nextInt(8);
 			}
 		}
@@ -53,10 +52,17 @@ public class Alien extends AbstractShape implements Shape, Animation {
 		if( radius <= 40 ){
 			this.radius += radius/2;
 		} else {
-			this.radius = 0;
+			this.world.removeShape(this);
 			for( int i=0; i<20; i++ ){
 				this.world.addShape(new PanikStuck((int)center.x, (int)center.y, getColor(), 0, rand.nextInt(10)+5 ));
 			}
+		}
+	}
+	public boolean contains(double x, double y) {
+		if( x<(center.x-radius) || x>center.x+radius || y<(center.y-radius) || y>(center.y+2*radius) ){
+			return false;
+		} else {
+			return true;
 		}
 	}
 
