@@ -7,7 +7,7 @@ public class Around implements Shape, Animation {
 	double radius;
 	Point center;
 	Color color = Color.lightGray;
-	ShapesWorld welt;
+	ShapesWorld world;
 	double velocity = 1;
 
 	// CONSTRUCTOR
@@ -26,7 +26,7 @@ public class Around implements Shape, Animation {
 		center.y = (int) y;
 	}
 	public void setShapesWorld(ShapesWorld theWorld){
-		this.welt = theWorld;
+		this.world = theWorld;
 	}
 	public void draw(Graphics g){
 		g.setColor(color);
@@ -43,7 +43,7 @@ public class Around implements Shape, Animation {
 	}
 	public void userClicked(double atX, double atY){
 		this.radius += 2;
-		this.welt.addShape(new Around());
+		this.world.addShape(new Around());
 	}
 	public void userTyped(char key){
 		System.out.println("key");
@@ -62,10 +62,10 @@ public class Around implements Shape, Animation {
 
 	// PLAY METHOD
 	public void play(){
-		if( (center.x-radius) <= welt.getMax_X() ){
+		if( (center.x-radius) <= world.getMax_X() ){
 			center.x = center.x + velocity;
 		} else {
-			center.x = welt.getMin_X()+radius;
+			center.x = world.getMin_X()+radius;
 		}
 	}
 
