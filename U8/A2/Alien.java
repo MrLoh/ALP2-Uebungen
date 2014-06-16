@@ -70,51 +70,23 @@ public class Alien implements Shape, Animation {
 
 	// PLAY METHOD
 	public void play(){
-		String dir = randomDirection();
-		String[] avDir = availableDirections();
-		while( !inStringArray(avDir, dir) ){
-			dir = randomDirection();
+		int dir = rand.nextInt(4);
+		// System.out.println(directionAvailable(dir));
+		while( !directionAvailable(dir) ){
+			dir = rand.nextInt(4);
 		}
 		switch(dir) {
-			case "U": center.y += velocity; break;
-			case "D": center.y -= velocity; break;
-			case "R": center.x += velocity; break;
-			case "L": center.x -= velocity; break;
+			case 0: center.x += velocity; break;
+			case 1: center.x -= velocity; break;
+			case 2: center.y += velocity; break;
+			case 3: center.y -= velocity; break;
 		}
 	}
-	public static boolean inStringArray(String[] stack, String key){
-		boolean tester = false;
-		for( int i=0; i<stack.length; i++){
-			if( stack[i].equals(key) ){ tester = true; }
-		}
-		return tester;
-	}
-	public String randomDirection(){
-		int i = rand.nextInt(4);
-		String dir = "";
-		switch(i) {
-			case 0: dir = "R"; break;
-			case 1: dir = "L"; break;
-			case 2: dir = "U"; break;
-			case 3: dir = "D"; break;
-		}
-		return dir;
-	}
-	public String[] availableDirections(){
-		String[] directions = new String[4];
-		if( (center.x+radius) <= world.getMax_X() ){
-			directions[0] = "R";
-		}
-		if( (center.x-radius) >= world.getMin_X() ){
-			directions[1] = "L";
-		}
-		if( (center.y+1.5*radius) <= world.getMax_Y() ){
-			directions[2] = "U";
-		}
-		if( (center.y-1.5*radius) >= world.getMin_Y() ){
-			directions[3] = "D";
-		}
-		return directions;
+	public boolean directionAvailable(int dir){
+		return ( (dir == 0 && (center.x+radius) <= world.getMax_X()) ||
+                 (dir == 1 && (center.x-radius) >= world.getMin_X()) ||
+                 (dir == 2 && (center.y+1.5*radius) <= world.getMax_Y()) ||
+                 (dir == 3 && (center.y-1.5*radius) >= world.getMin_Y()) );
 	}
 
 	// INTERACTIONS
