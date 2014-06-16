@@ -10,12 +10,14 @@ public class Around implements Shape, Animation {
 	ShapesWorld welt;
 	double velocity = 1;
 
-	// METHODS
+	// CONSTRUCTOR
 	public Around() {
 		this.radius = 15;
 		this.color = Color.CYAN;
 		this.center = new Point();
 	}
+
+	// METHODS
 	public Color getColor(){
 		return color;
 	}
@@ -23,43 +25,28 @@ public class Around implements Shape, Animation {
 		center.x = (int) x;
 		center.y = (int) y;
 	}
-
 	public void setShapesWorld(ShapesWorld theWorld){
 		this.welt = theWorld;
 	}
-
 	public void draw(Graphics g){
 		g.setColor(color);
 		fillTriangle(g, center.x-radius, center.y-radius, radius*2, radius*2);
 	}
-
 	public void fillTriangle(Graphics g, double x, double y, double w, double h){
 		int[] x_coords = { (int) (x+w/2), (int) (x), (int) (x+w) };
 		int[] y_coords = { (int) (y), (int) (y+h), (int) (y+h) };
 		Polygon p = new Polygon(x_coords, y_coords, 3);
 		g.fillPolygon(p);
 	}
-
 	public Point getCenter() {
 		return center;
 	}
-
 	public void userClicked(double atX, double atY){
 		this.radius += 2;
 		this.welt.addShape(new Around());
 	}
-
 	public void userTyped(char key){
 		System.out.println("key");
-	}
-
-	// implement the Animation-Interface
-	public void play(){
-		if( (center.x-radius) <= welt.getMax_X() ){
-			center.x = center.x + velocity;
-		} else {
-			center.x = welt.getMin_X()+radius;
-		}
 	}
 
 	public boolean contains(double x, double y) {
@@ -69,9 +56,17 @@ public class Around implements Shape, Animation {
 			return true;
 		}
 	}
-
 	public double getRadius() {
 		return radius;
+	}
+
+	// PLAY METHOD
+	public void play(){
+		if( (center.x-radius) <= welt.getMax_X() ){
+			center.x = center.x + velocity;
+		} else {
+			center.x = welt.getMin_X()+radius;
+		}
 	}
 
 }
