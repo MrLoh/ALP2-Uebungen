@@ -30,11 +30,9 @@ public class Panik extends AbstractShape implements Shape, Animation {
 	public void play(){
 		steps++;
 		while( !directionInFrame(dir, 1.2) ){
-			System.out.println("cornered");
 			dir = rand.nextInt(8);
 		}
 		if( directionOccupied(dir) ){
-			System.out.println("occupied");
 			collisions++;
 			steps = 0;
 			dir = rand.nextInt(8);

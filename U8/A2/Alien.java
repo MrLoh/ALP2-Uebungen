@@ -38,7 +38,7 @@ public class Alien extends AbstractShape implements Shape, Animation {
 	// PLAY METHOD
 	public void play(){
 		steps++;
-		if( steps%(2*radius) == 0 ){ //make him move a little smoother
+		if( !enslaved() && steps%(2*radius) == 0 ){ //make him move a little smoother
 			dir = rand.nextInt(8);
 			while( !directionInFrame(dir, 6.0) ){
 				dir = rand.nextInt(8);
@@ -49,13 +49,9 @@ public class Alien extends AbstractShape implements Shape, Animation {
 
 	// INTERACTIONS
 	public void userClicked(double atX, double atY){
-		if( radius <= 40 ){
-			this.radius += radius/2;
-		} else {
-			this.world.removeShape(this);
-			for( int i=0; i<20; i++ ){
-				this.world.addShape(new PanikStuck((int)center.x, (int)center.y, getColor(), 0, rand.nextInt(10)+5 ));
-			}
+		this.world.removeShape(this);
+		for( int i=0; i<20; i++ ){
+			this.world.addShape(new PanikStuck((int)center.x, (int)center.y, getColor(), 0, rand.nextInt(10)+5 ));
 		}
 	}
 	public boolean contains(double x, double y) {

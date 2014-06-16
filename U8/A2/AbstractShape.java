@@ -134,5 +134,13 @@ abstract class AbstractShape implements Shape, Animation {
 	public void userTyped(char key){
 		System.out.println("key");
 	}
+	public boolean enslaved(){
+		boolean slave = false;
+		Shape neighbour = this.world.getClosestShape(this);
+		if( neighbour instanceof Wrapper ){
+			slave = this.contains(neighbour.getCenter().x, neighbour.getCenter().y);
+		}
+		return slave;
+	}
 
 }
