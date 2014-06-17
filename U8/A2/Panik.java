@@ -20,8 +20,8 @@ public class Panik extends AbstractShape implements Shape, Animation {
 	}
 
 	// DRAW METHODS
-	public void setShapesWorld(ShapesWorld theWorld){ this.world = theWorld; }
 	public void draw(Graphics g){
+		g.setColor(color);
 		fillNtagon(g, center.x, center.y, radius, 7);
 	}
 	public void destroy(){

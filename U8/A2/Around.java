@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
-public class Around implements Shape, Animation {
+public class Around extends AbstractShape implements Shape, Animation {
 	// ATTRIBUTES
 	double radius;
 	Point center;

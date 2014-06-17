@@ -25,7 +25,6 @@ public class PanikStuck extends AbstractShape implements Shape, Animation {
 	}
 
 	// DRAW METHODS
-	public void setShapesWorld(ShapesWorld theWorld){ this.world = theWorld; }
 	public void draw(Graphics g){
 		g.setColor(color);
 		fillNtagon(g, center.x, center.y, radius, shape);

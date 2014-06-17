@@ -30,4 +30,7 @@ public interface Shape {
 	public void moveTo(double x, double y);
 	// the Shape-object moves to the (x,y)-coordinates.
 
+	public void destroy();
+	// destroys the shape, possibly with an animation
+
 }
