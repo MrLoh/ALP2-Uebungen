@@ -6,13 +6,12 @@ import java.util.Random;
 public class PanikStuck extends AbstractShape implements Shape, Animation {
 	// ATTRIBUTES
 	double velocity = 6;
-	int steps = 0;
 	int shape = rand.nextInt(4)+6;
 	int dir = rand.nextInt(8);
 	// dir: 0: right, 1: left, 2: up, 3: down, 4: upright, 5:upleft, 6: downright, 7:downleft
 
 	// CONSTRUCTOR
-	public PanikStuck(int x, int y, Color color, int shape, double radius){
+	public PanikStuck(double x, double y, Color color, int shape, double radius){
 		this.radius = radius;
 		this.velocity = radius;
 		this.center = new Point(x,y);

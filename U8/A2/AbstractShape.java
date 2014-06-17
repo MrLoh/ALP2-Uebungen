@@ -10,6 +10,7 @@ abstract class AbstractShape implements Shape, Animation {
 	Color color = Color.lightGray;
 	ShapesWorld world;
 	double velocity;
+	int steps = 0;
 	Random rand = new Random();
 
 	public void setShapesWorld(ShapesWorld theWorld){
@@ -58,6 +59,9 @@ abstract class AbstractShape implements Shape, Animation {
 		} else {
 			return true;
 		}
+	}
+	public void destroy(){
+		this.world.removeShape(this);
 	}
 
 	// MOVE METHODS

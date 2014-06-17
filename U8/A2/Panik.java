@@ -6,7 +6,6 @@ import java.util.Random;
 public class Panik extends AbstractShape implements Shape, Animation {
 	// ATTRIBUTES
 	double velocity = 1;
-	int steps = 0;
 	int collisions = 0;
 	int shaking = 0;
 	int dir = rand.nextInt(8);
@@ -25,6 +24,12 @@ public class Panik extends AbstractShape implements Shape, Animation {
 	public void draw(Graphics g){
 		fillNtagon(g, center.x, center.y, radius, 7);
 	}
+	public void destroy(){
+		this.world.removeShape(this);
+		for( int i=0; i<20; i++ ){
+			this.world.addShape(new PanikStuck(center.x, center.y, getColor(), rand.nextInt(4)+5, rand.nextInt(5)+3 ));
+		}
+	}
 
 	// PLAY METHOD
 	public void play(){
@@ -38,24 +43,24 @@ public class Panik extends AbstractShape implements Shape, Animation {
 			dir = rand.nextInt(8);
 		}
 		if( shaking > 0 || collisions > 20 && steps < 50 ){
-			if( shaking<50 ){
-				if( shaking%2 ==0 ){
-					move(0, 2*velocity);
-				} else {
-					move(1, 2*velocity);
-				}
-				shaking++;
-			} else {
-				this.world.removeShape(this);
-				for( int i=0; i<20; i++ ){
-					this.world.addShape(new PanikStuck((int)center.x, (int)center.y, getColor(), rand.nextInt(4)+5, rand.nextInt(5)+3 ));
-				}
-			}
+			this.panic();
 		} else {
 			move(dir, velocity);
 			if( steps > 50 ){
 				collisions = 0;
 			}
+		}
+	}
+	public void panic(){
+		if( shaking<50 ){
+			if( shaking%2 ==0 ){
+				move(0, 2*velocity);
+			} else {
+				move(1, 2*velocity);
+			}
+			shaking++;
+		} else {
+			this.destroy();
 		}
 	}
 
