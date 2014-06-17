@@ -21,10 +21,9 @@ public class BabyAlien extends Alien implements Shape, Animation {
 	// DRAW METHODS
 	public void draw(Graphics g){
 		g.setColor(color);
-		// outlineCircle(g, center.x, center.y-radius/2, radius);      //helmet
 		fillCircle(g, center.x, center.y-radius/4, radius);         //head
 		fillAlienBody(g, center.x, center.y, radius);               //body
-		// outlineNtagon(g, center.x, center.y+radius, radius/3, 5);   //hooverpad
+		outlineNtagon(g, center.x, center.y+radius, radius/3, 5);   //hooverpad
 	}
 	public void mature(){
 		this.world.removeShape(this);
