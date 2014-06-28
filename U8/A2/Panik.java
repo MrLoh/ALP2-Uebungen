@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class Panik extends AbstractShape implements Shape, Animation {
+public class Panik extends AbstractShape {
 	// ATTRIBUTES
 	double velocity = 1;
 	int collisions = 0;

@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class Mjolnir extends AbstractShape implements Shape, Animation {
+public class Mjolnir extends AbstractShape {
 	// ATTRIBUTES
 	double radius = 20;
 	final double VELOCITY = 20;

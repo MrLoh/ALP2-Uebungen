@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class MiniWrapper extends Wrapper implements Shape, Animation {
+public class MiniWrapper extends Wrapper {
 
 	// CONSTRUCTOR
 	public MiniWrapper(double x, double y) {

@@ -16,10 +16,10 @@ public class IWalkerSpace extends WalkerSpace {
 			if (isWestFree(walker)) walker.currentFreeDirs.add(Direction.WEST.ordinal());
 			if (isNorthFree(walker)) walker.currentFreeDirs.add(Direction.NORTH.ordinal());
 			if (isSouthFree(walker)) walker.currentFreeDirs.add(Direction.SOUTH.ordinal());
-			if (isNorthFree(walker)) walker.currentFreeDirs.add(Direction.NORTHWEST.ordinal());
-			if (isSouthFree(walker)) walker.currentFreeDirs.add(Direction.SOUTHWEST.ordinal());
-			if (isNorthFree(walker)) walker.currentFreeDirs.add(Direction.NORTHEAST.ordinal());
-			if (isSouthFree(walker)) walker.currentFreeDirs.add(Direction.SOUTHEAST.ordinal());
+			if (isNorthWestFree(walker)) walker.currentFreeDirs.add(Direction.NORTHWEST.ordinal());
+			if (isSouthWestFree(walker)) walker.currentFreeDirs.add(Direction.SOUTHWEST.ordinal());
+			if (isNorthEastFree(walker)) walker.currentFreeDirs.add(Direction.NORTHEAST.ordinal());
+			if (isSouthEastFree(walker)) walker.currentFreeDirs.add(Direction.SOUTHEAST.ordinal());
 		}
 		if (walker.currentFreeDirs.isEmpty()){
 			walker.setDead();

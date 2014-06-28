@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class TimeWrapper extends Wrapper implements Shape, Animation {
+public class TimeWrapper extends Wrapper {
 
 	// CONSTRUCTOR
 	public TimeWrapper() {

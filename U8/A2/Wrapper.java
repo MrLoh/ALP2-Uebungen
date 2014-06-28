@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class Wrapper extends AbstractShape implements Shape, Animation {
+public class Wrapper extends AbstractShape {
 	// ATTRIBUTES
 	double velocity = 4;
 	boolean catched = false;

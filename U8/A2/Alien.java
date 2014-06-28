@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class Alien extends AbstractShape implements Shape, Animation {
+public class Alien extends AbstractShape {
 	// ATTRIBUTES
 	double velocity = 2;
 	boolean clicked = false;

@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class BabyAlien extends Alien implements Shape, Animation {
+public class BabyAlien extends Alien {
 	// CONSTRUCTOR
 	public BabyAlien(double x, double y) {
 		this.velocity = 0.5;

@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class PanikStuck extends AbstractShape implements Shape, Animation {
+public class PanikStuck extends AbstractShape {
 	// ATTRIBUTES
 	double velocity = 6;
 	int shape = rand.nextInt(4)+6;
