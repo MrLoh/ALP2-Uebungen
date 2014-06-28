@@ -62,11 +62,11 @@ public class ListQueue<E> implements Queue<E>, Iterable<E> {
 		return (this.head == null);
 	}
 	public String toString(){
-		String out = "QUEUE: [";
+		String out = "LISTQUEUE = | ";
 		for( E element : this ){
-			out += element + ", ";
+			out += element + " | ";
 		}
-		return out + "]";
+		return out;
 	}
 
 	// ITERABLE METHODS
@@ -90,10 +90,11 @@ public class ListQueue<E> implements Queue<E>, Iterable<E> {
 		public E next() {
 			if( !this.hasNext() ){
 				throw new NoMoreElementsException();
+			} else {
+				E element = this.current.element;
+				this.current = this.current.next;
+				return element;
 			}
-			E element = this.current.element;
-			this.current = this.current.next;
-			return element;
 		}
 		public void remove() {
 			throw new UnsupportedOperationException();
