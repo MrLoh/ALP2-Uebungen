@@ -30,5 +30,4 @@ public class Walker {
 		this.color = deadColor;
 		this.alive = false;
 	}
-
 }
