@@ -17,8 +17,8 @@ public class SimulateMessageTraffic {
 	}
 	public void addMessage() {
 		int priority = this.randomPriority();
-		// String data = this.nextMessage() + " P:"+priority;
-		String data = this.nextMessage();
+		String data = this.nextMessage() + " P:"+priority;
+		// String data = this.nextMessage();
 		this.queue.enqueue(priority, data);
 	}
 	public String removeMessage() {

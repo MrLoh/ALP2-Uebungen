@@ -4,13 +4,11 @@ import java.lang.*;
 public class PriorityQueue <P extends Comparable<P>,D> implements Queue<D,P> {
 	// ATTRIBUTES
 	private TreeNode<P,D> root;
-	private TreeNode<P,D> last;
 	private int size;
 
 	// CONSTRUCTOR
 	PriorityQueue() {
 		this.root = null;
-		this.last = null;
 		this.size = 0;
 	}
 
