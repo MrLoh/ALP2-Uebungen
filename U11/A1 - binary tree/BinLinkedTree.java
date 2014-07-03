@@ -34,7 +34,12 @@ implements Iterable<T>
 		}
 	}
 
-	// METHODS
+	// INSERT, DELTE METHODS
+	public boolean empty() {
+	/* Return true if tree is empty. */
+	// O{1}
+		return this.size == 0;
+	}
 	public void insert(T key, D data) {
 	/* Insert new node with given key and data. */
 	// O{log(n)}
@@ -63,26 +68,6 @@ implements Iterable<T>
 			}
 		}
 		size++;
-	}
-	public boolean empty() {
-	/* Return true if tree is empty. */
-	// O{1}
-		return this.size == 0;
-	}
-	public TreeNode getNode(T key) {
-	/* Return the node with the given key */
-	// O{log(n)}
-		TreeNode node = this.root;
-		while( node != null ){
-			if( key.compareTo(node.key) > 0 ){
-				node = node.right;
-			} else if( key.compareTo(node.key) < 0 ) {
-				node = node.left;
-			} else {
-				return node;
-			}
-		}
-		throw new NoSuchElementException();
 	}
 	public boolean delete(T key) {
 	/* Delete the node with the given key and return true, if it does not exists, return false. */
@@ -118,6 +103,7 @@ implements Iterable<T>
 			} else {
 				TreeNode successor = this.succ(node);
 				this.delete(successor.key);
+				this.size++;
 				successor.left = node.left;
 				successor.right = node.right;
 				if( isroot ){
@@ -135,6 +121,27 @@ implements Iterable<T>
 		}
 	}
 
+	// GET, MIN, MAX, SUCC, PRED METHODS
+	public TreeNode getNode(T key) {
+	/* Return the node with the given key */
+	// O{log(n)}
+		TreeNode node = this.root;
+		while( node != null ){
+			if( key.compareTo(node.key) > 0 ){
+				node = node.right;
+			} else if( key.compareTo(node.key) < 0 ) {
+				node = node.left;
+			} else {
+				return node;
+			}
+		}
+		throw new NoSuchElementException();
+	}
+	public D getData(T key){
+	/* Return the data with the given key */
+	// O{log(n)}
+		return this.getNode(key).data;
+	}
 	public TreeNode minNode(TreeNode node) {
 	/* Return the node with the smallest key in the subtree of the given node. */
 	// O{log(n)}
@@ -188,7 +195,7 @@ implements Iterable<T>
 		}
 	}
 
-
+	// DEPTH METHOD
 	public int deep() {
 	/* Return depth of tree. */
 	// O{n*log(n)}
@@ -199,18 +206,20 @@ implements Iterable<T>
 			TreeNode node = stack.pop();
 			if( node.left != null ) {
 				stack.push(node.left);
-				max = StrictMath.max(max, depth(node.left));
+				max = StrictMath.max(max, depth(node.left.key));
 			}
 			if( node.right != null ){
 				stack.push(node.right);
-				max = StrictMath.max(max, depth(node.right));
+				max = StrictMath.max(max, depth(node.right.key));
 			}
 		}
 		return max;
 	}
-	public int depth(TreeNode node){
+	public int depth(T key){
+	/* Return depth of tree from given node to the root. */
 	// O{log(n)}
 		int depth = 0;
+		TreeNode node = this.getNode(key);
 		while( node.parent != null ){
 			node = node.parent;
 			depth++;
@@ -218,10 +227,54 @@ implements Iterable<T>
 		return depth;
 	}
 
+	// BALANCED METHOD
+	public boolean perfectBalanced(TreeNode node) {
+	/* Return true, if subtree of given node is perfectly balanced. */
+	// O{log(n)}
+		int leftSize = getSize(node.left.key);
+		int rightSize = getSize(node.right.key);
+		if( leftSize > rightSize ){
+			return leftSize == rightSize+1;
+		} else if( leftSize < rightSize ){
+			return leftSize+1 == rightSize;
+		} else {
+			return true;
+		}
+	}
+	public boolean perfectBalanced(T key) {
+		TreeNode node = this.getNode(key);
+		return perfectBalanced(node);
+	}
+	public boolean perfectBalanced() {
+		return perfectBalanced(this.root);
+	}
+	public int getSize(T key) {
+	/* Return number of nodes in subtree of given node */
+	// O{log(n)}
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(this.getNode(key));
+		int size = 0;
+		while( !stack.isEmpty() ){
+			TreeNode node = stack.pop();
+			size++;
+			if( node.left != null ){
+				stack.push(node.left);
+			}
+			if( node.right != null ){
+				stack.push(node.right);
+			}
+		}
+		return size;
+	}
+	public int getSize() {
+		return this.size;
+	}
+
+	// STRING, ARRAY METHODS
 	public D[] toArray() {
 	/* Return array with the data from all elements of the tree, sorted by the keys. */
 	// O{n*log(n)}
-		D[] array = (D[]) new Object[size];
+		D[] array = (D[]) new Object[this.size];
 		int i = 0;
 		for( T key : this ){
 			array[i] = this.getNode(key).data;
@@ -229,12 +282,11 @@ implements Iterable<T>
 		}
 		return array;
 	}
-
 	public String toStringOrdered() {
 	// O{n*log(n)}
-		String out = "|";
+		String out = "";
 		for( T key : this ){
-			out += String.format(" %s |", key);
+			out += key + "  ";
 		}
 		return out;
 	}
@@ -284,17 +336,21 @@ implements Iterable<T>
 		return node;
 	}
 
-
-	// ITERABLE METHODS
+	// ITERATOR METHOD
 	public Iterator<T> iterator() {
-		return new InorderIterator();
+		return iteratorIO();
 	}
-	private class InorderIterator implements Iterator<T> {
+
+	// IN ORDER ITERABLE METHODS
+	public Iterator<T> iteratorIO() {
+		return new InOrderIterator();
+	}
+	private class InOrderIterator implements Iterator<T> {
 		// ATTRIBUTES
 		private Stack<TreeNode> stack = new Stack<TreeNode>();
 
 		// CONSTRUCTOR
-		InorderIterator() {
+		InOrderIterator() {
 			pushLeftTree(root);
 		}
 
@@ -321,6 +377,47 @@ implements Iterable<T>
 		}
 		public void remove() {
 			throw new UnsupportedOperationException();
+		}
+	}
+
+	// POST ORDER ITERABLE METHODS
+	public Iterator<T> iteratorPO() {
+		return new PostOrderIterator();
+	}
+	private class PostOrderIterator implements Iterator<T> {
+		// ATTRIBUTES
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		Stack<Boolean> rightChild = new Stack<Boolean>();
+
+		// CONSTRUCTOR
+		PostOrderIterator() {
+			pushLeftTree(root);
+		}
+
+		// METHODS
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+		public T next() {
+			if( stack.peek().right == null || rightChild.peek() ){
+				rightChild.pop();
+				return stack.pop().key;
+			} else {
+				rightChild.pop();
+				rightChild.push(true);
+				pushLeftTree(stack.peek().right);
+				return next();
+			}
+		}
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		private void pushLeftTree(TreeNode node) {
+			if (node != null) {
+				stack.push(node);
+				rightChild.push(false);
+				pushLeftTree(node.left);
+			}
 		}
 	}
 

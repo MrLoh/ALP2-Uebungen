@@ -68,6 +68,43 @@ public class TestBinLinkedTree {
 		tree2b.delete(new Num(63));
 		tree2b.delete(new Num(53));
 		print(tree2b);
+		print("");
 
+		// BALANCED DELETING
+		print("Tree size:");
+		print(tree2b.getSize());
+		print(tree2b.getSize(new Num(64)));
+		print("13 size:");
+		print(tree2b.getSize(new Num(13)));
+		print("");
+		print("Tree perfectly balanced: " + tree2b.perfectBalanced());
+		print("perfectly balanced at 13: " + tree2b.perfectBalanced(new Num(13)));
+		print("perfectly balanced at 27: " + tree2b.perfectBalanced(new Num(27)));
+		print("perfectly balanced at 95: " + tree2b.perfectBalanced(new Num(95)));
+		print("");
+
+		// ARRAY AND POST ORDER ITERATION
+		print(tree1);
+		print("Element in order:");
+		String elementsIO = "";
+		for( Iterator<Num> iter = tree1.iteratorIO(); iter.hasNext(); ){
+			elementsIO += iter.next() + "  ";
+		}
+		print(elementsIO);
+		print("");
+		// print("Data in order:");
+		// String dataString = "";
+		// for( String data : tree1.toArray() ){
+		// 	dataString += data + "   ";
+		// }
+		// print(dataString);
+		print("Java can not cast `(String[]) Object[n]`, so no tests for `toArray` here.");
+		print("");
+		print("Element post order:");
+		String elementsPO = "";
+		for( Iterator<Num> iter = tree1.iteratorPO(); iter.hasNext(); ){
+			elementsPO += iter.next() + "  ";
+		}
+		print(elementsPO);
 	}
 }
