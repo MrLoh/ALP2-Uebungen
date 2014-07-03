@@ -69,6 +69,9 @@ implements Iterable<T>
 		}
 		size++;
 	}
+	public static class DuplicateKeyException extends RuntimeException {
+		public DuplicateKeyException() { super(); }
+	}
 	public boolean delete(T key) {
 	/* Delete the node with the given key and return true, if it does not exists, return false. */
 	// O{(log(n))^2}
