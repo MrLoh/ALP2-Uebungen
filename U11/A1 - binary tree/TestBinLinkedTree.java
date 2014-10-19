@@ -112,26 +112,41 @@ public class TestBinLinkedTree {
 
 		// ARRAY AND POST ORDER ITERATION
 		print(tree1);
-		print("Element in order:");
-		String elementsIO = "";
-		for( Iterator<Num> iter = tree1.iteratorIO(); iter.hasNext(); ){
-			elementsIO += iter.next() + "  ";
+		print("Elements level order:");
+		String elements = "";
+		for( Iterator<Num> iter = tree1.iterator(); iter.hasNext(); ){
+			elements += iter.next() + "  ";
 		}
-		print(elementsIO);
+		print(elements);
 		print("");
-		// print("Data in order:");
-		// String dataString = "";
-		// for( String data : tree1.toArray() ){
-		// 	dataString += data + "   ";
-		// }
-		// print(dataString);
-		print("Java can not cast `(String[]) Object[n]`, so no tests for `toArray` here.");
+		print("Data in order:");
+		String dataString = "";
+		Object[] array = tree1.toArray();
+		for( Object data : array ){
+			dataString += data + "   ";
+		}
+		print(dataString);
+		// print("Java can not cast `(String[]) Object[n]`, so no tests for `toArray` here.");
+		print("");
+		print("Element pre order:");
+		elements = "";
+		for( Iterator<Num> iter = tree1.iteratorPreOrder(); iter.hasNext(); ){
+			elements += iter.next() + "  ";
+		}
+		print(elements);
+		print("");
+		print("Element in order:");
+		elements = "";
+		for( Iterator<Num> iter = tree1.iteratorInOrder(); iter.hasNext(); ){
+			elements += iter.next() + "  ";
+		}
+		print(elements);
 		print("");
 		print("Element post order:");
-		String elementsPO = "";
-		for( Iterator<Num> iter = tree1.iteratorPO(); iter.hasNext(); ){
-			elementsPO += iter.next() + "  ";
+		elements = "";
+		for( Iterator<Num> iter = tree1.iteratorPostOrder(); iter.hasNext(); ){
+			elements += iter.next() + "  ";
 		}
-		print(elementsPO);
+		print(elements);
 	}
 }

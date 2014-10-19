@@ -274,7 +274,9 @@ implements Iterable<T>
 	}
 
 	// STRING, ARRAY METHODS
-	public D[] toArray() {
+	// public D[] toArray() {
+	// better explicitly return, what will be returned.
+	public Object[] toArray() {
 	/* Return array with the data from all elements of the tree, sorted by the keys. */
 	// O{n*log(n)}
 		D[] array = (D[]) new Object[this.size];
@@ -304,7 +306,7 @@ implements Iterable<T>
 				try {
 					out += this.getNode(i).key + space + space + "  ";
 				} catch( NoSuchElementException e ){
-					out += " ." + space + space + "  ";
+					out += ".." + space + space + "  ";
 				}
 			}
 			out += "\n";
@@ -327,6 +329,9 @@ implements Iterable<T>
 	/** Returns node at given position. */
 	// O{log(n)}
 		TreeNode node = this.root;
+		if( n == 1 ){
+			return root;
+		}
 		for( char c : getNodePath(n) ){
 			if( c == '0' && node.left != null ){
 				node = node.left;
@@ -341,11 +346,41 @@ implements Iterable<T>
 
 	// ITERATOR METHOD
 	public Iterator<T> iterator() {
-		return iteratorIO();
+		return new LevelOrderIterator();
+	}
+
+	private class LevelOrderIterator implements Iterator<T> {
+		// ATTRIBUTES
+		private int position = 0;
+		private int count = 0;
+
+		// METHODS
+		public boolean hasNext() {
+			return this.count < size;
+		}
+		public T next() {
+			if( !hasNext() ){
+				throw new NoSuchElementException();
+			}
+			this.count++;
+			while( true ){
+				try{
+					this.position++;
+					return getNode(this.position).key;
+				} catch( NoSuchElementException e ){
+					this.position++;
+				}
+			}
+
+
+		}
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
 	}
 
 	// IN ORDER ITERABLE METHODS
-	public Iterator<T> iteratorIO() {
+	public Iterator<T> iteratorInOrder() {
 		return new InOrderIterator();
 	}
 	private class InOrderIterator implements Iterator<T> {
@@ -354,7 +389,8 @@ implements Iterable<T>
 
 		// CONSTRUCTOR
 		InOrderIterator() {
-			pushLeftTree(root);
+			// pushLeftTree(root);
+			this.fillStack(root);
 		}
 
 		// METHODS
@@ -362,29 +398,42 @@ implements Iterable<T>
 		// O{1}
 			return !stack.isEmpty();
 		}
+		// public T next() {
+		// // O{log(n)}
+		// 	if( !hasNext() ){
+		// 		throw new NoSuchElementException();
+		// 	}
+		// 	TreeNode node = stack.pop();
+		// 	pushLeftTree(node.right);
+		// 	return node.key;
+		// }
 		public T next() {
-		// O{log(n)}
 			if( !hasNext() ){
 				throw new NoSuchElementException();
 			}
-			TreeNode node = stack.pop();
-			pushLeftTree(node.right);
-			return node.key;
+			return this.stack.pop().key;
 		}
-		private void pushLeftTree(TreeNode node) {
-		// O{log(n)}
-			while (node != null) {
-				stack.push(node);
-				node = node.left;
-			}
-		}
+		// private void pushLeftTree(TreeNode node) {
+		// // O{log(n)}
+		// 	while (node != null) {
+		// 		stack.push(node);
+		// 		node = node.left;
+		// 	}
+		// }
 		public void remove() {
 			throw new UnsupportedOperationException();
+		}
+		private void fillStack(TreeNode node) {
+			if (node != null) {
+				fillStack(node.right);
+				this.stack.push(node);
+				fillStack(node.left);
+			}
 		}
 	}
 
 	// POST ORDER ITERABLE METHODS
-	public Iterator<T> iteratorPO() {
+	public Iterator<T> iteratorPostOrder() {
 		return new PostOrderIterator();
 	}
 	private class PostOrderIterator implements Iterator<T> {
@@ -394,7 +443,61 @@ implements Iterable<T>
 
 		// CONSTRUCTOR
 		PostOrderIterator() {
-			pushLeftTree(root);
+			// this.pushLeftTree(root);
+			this.fillStack(root);
+		}
+
+		// METHODS
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+		// public T next() {
+		// 	if( stack.peek().right == null || rightChild.peek() ){
+		// 		rightChild.pop();
+		// 		return stack.pop().key;
+		// 	} else {
+		// 		rightChild.pop();
+		// 		rightChild.push(true);
+		// 		pushLeftTree(stack.peek().right);
+		// 		return next();
+		// 	}
+		// }
+		public T next() {
+			if( !hasNext() ){
+				throw new NoSuchElementException();
+			}
+			return this.stack.pop().key;
+		}
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		// private void pushLeftTree(TreeNode node) {
+		// 	if (node != null) {
+		// 		stack.push(node);
+		// 		rightChild.push(false);
+		// 		pushLeftTree(node.left);
+		// 	}
+		// }
+		private void fillStack(TreeNode node) {
+			if (node != null) {
+				this.stack.push(node);
+				fillStack(node.right);
+				fillStack(node.left);
+			}
+		}
+	}
+
+	// PRE ORDER ITERABLE METHODS
+	public Iterator<T> iteratorPreOrder() {
+		return new PreOrderIterator();
+	}
+	private class PreOrderIterator implements Iterator<T> {
+		// ATTRIBUTES
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+
+		// CONSTRUCTOR
+		PreOrderIterator() {
+			this.fillStack(root);
 		}
 
 		// METHODS
@@ -402,24 +505,19 @@ implements Iterable<T>
 			return !stack.isEmpty();
 		}
 		public T next() {
-			if( stack.peek().right == null || rightChild.peek() ){
-				rightChild.pop();
-				return stack.pop().key;
-			} else {
-				rightChild.pop();
-				rightChild.push(true);
-				pushLeftTree(stack.peek().right);
-				return next();
+			if( !hasNext() ){
+				throw new NoSuchElementException();
 			}
+			return this.stack.pop().key;
 		}
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
-		private void pushLeftTree(TreeNode node) {
+		private void fillStack(TreeNode node) {
 			if (node != null) {
-				stack.push(node);
-				rightChild.push(false);
-				pushLeftTree(node.left);
+				fillStack(node.right);
+				fillStack(node.left);
+				this.stack.push(node);
 			}
 		}
 	}
